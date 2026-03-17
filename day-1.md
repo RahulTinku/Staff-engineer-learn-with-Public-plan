@@ -31,7 +31,7 @@ Are there synchronous sequential await import() chains? → Replace with Promise
 Are there Promises spawning Promises in bootstrap? → Microtask starvation risk
 Check flame chart for V8 deoptimizations — repeated type changes in hot paths
 
-Step 3 — Diagnose the network layer
+Step 3 — Diagnose the network layer 
 
 Waterfall view — are module fetches sequential or parallel?
 Bundle sizes — is your platform-core bundle too large?
