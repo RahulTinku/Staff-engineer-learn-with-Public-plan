@@ -10,7 +10,7 @@
 
 > A custom hook **can call other hooks inside it.** A regular utility function cannot.
 
-```javascript
+```javascript 
 // ❌ regular utility function — cannot use hooks
 function fetchData(url) {
   const [data, setData] = useState(null); // ILLEGAL — Rules of Hooks violated
