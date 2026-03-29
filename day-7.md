@@ -6,7 +6,7 @@
 
 ## Q1. Why the Rules of Hooks exist — the linked list internals
 
-Hook state is **not stored inside the component function.** Functions have no persistent memory between calls. React stores hook state on the **Fiber node** in a property called `memoizedState` — a **linked list of hook states:**
+Hook state is **not stored inside the component function.** Functions have no persistent memory between calls. React stores hook state on the **Fiber node** in a property called `memoizedState` — a **linked list of hook states:** 
 
 ```
 Fiber Node for <MyComponent>
