@@ -6,7 +6,7 @@
 
 ## Q1. Measure First — Never Guess
 
-**The most important performance principle:**
+**The most important performance principle:** 
 
 > **Measure first. Never guess.**
 
