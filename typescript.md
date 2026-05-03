@@ -79,7 +79,7 @@ Modify existing types without rewriting them.
 | :--- | :--- |
 | `Partial<T>` | Makes all properties in T **optional**. |
 | `Required<T>` | Makes all properties in T **mandatory**. |
-| `Pick<T, 'k1' | 'k2'>` | Creates a type with **only** selected keys. |
+| `Pick<T, 'k1' '|' 'k2'>` | Creates a type with **only** selected keys. |
 | `Omit<T, 'k1'>` | Creates a type **without** the selected keys. |
 | `Record<K, V>` | Creates a "Map/Dictionary" structure. |
 
