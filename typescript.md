@@ -73,15 +73,17 @@ Narrowing is how you handle Union types (e.g., `string | number`).
 ---
 
 ## 6. Utility Types (The "Cheat Codes")
-Modify existing types without rewriting them.
+Use these to transform existing types instead of creating new ones manually.
 
-| Utility | Result |
-| :--- | :--- |
-| `Partial<T>` | Makes all properties in T **optional**. |
-| `Required<T>` | Makes all properties in T **mandatory**. |
-| `Pick<T, 'k1' '|' 'k2'>` | Creates a type with **only** selected keys. |
-| `Omit<T, 'k1'>` | Creates a type **without** the selected keys. |
-| `Record<K, V>` | Creates a "Map/Dictionary" structure. |
+Partial<T>: Makes all properties optional.
+
+Required<T>: Makes all properties mandatory.
+
+Pick<T, 'key1' | 'key2'>: Creates a type by picking specific keys (Use | for multiple).
+
+Omit<T, 'key1'>: Creates a type by removing specific keys.
+
+Record<K, V>: Creates an object type with specific key types and value types.
 
 ---
 
