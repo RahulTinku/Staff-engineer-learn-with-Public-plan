@@ -1,0 +1,157 @@
+import React, {useState, useEffect} from 'react';
+
+const useFetch = (url) => {
+
+	const [data, setData] = useState(null)
+	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		const fetchData = async() => {
+			try{
+				setLoading(true);
+				setError(null)
+
+				const res = await fetch(url)
+				if(!res.ok) {
+					console.log(`HTTP error ${res.status})
+				}
+				const json = await res.json();
+
+				if(!cancelled){
+					setData(json)
+					setLoading(false)
+				}
+			
+			} catch(err){
+				if(!cancelled){
+					setError(err)
+					setLoading(false)
+				}
+			}
+		}
+
+		let cancelled = false
+		fetchData();
+
+		return () => {
+			cancelled = true
+		}
+		
+	},[url])
+	
+	retrun { data, loading, error }
+}
+
+-------------------------------------------------------------------------------------
+
+AbortController
+
+useEffect (() => {
+		const controller = new AbortController()
+
+		const fetchData = async() => {
+			try{
+				setLoading(true)
+				setError(null)
+
+				const res = await fetch(url, {
+					signal: controller.signal // tries to fetch the controller
+				})
+
+				if(!res.ok) console.log(`HTTP Error ${res.status}`);
+
+				const json = aawait res.json()
+				setData(json)
+				setLoading(false)
+			}catch(err){
+				if(err.name = 'AbortError') return
+				setError(err)
+				setLoading(false)
+			}
+		}
+	fetchData()
+
+	return () => {
+		controller.abort()
+	}
+}, [url])
+-------------------------------------------------------------------------------------
+
+
+import React, {useEffect, useState} from 'react'
+
+const useDebounce = (searchItem, delay) => {
+	const [data, setData] = useState(null)
+	
+	useEffect(() => {
+		const interval = setTimeout(() => {
+			setData(searchItem)
+		}, delay)
+
+		return () => {
+			clearTimeout(interval)
+		}
+	}, [searchItem, delay])
+
+	return data
+}
+
+
+-------------------------------------------------------------------------------------
+
+const SearchComponet = () =>{
+	const [query, setQuery] = useState('')
+	const [result, setResult] = useState([])
+
+	useEffect(() => {
+		const controller = new AbortController()
+
+		const search = async() => {
+			try{
+				const res = await fetch(`https://api.example.com/search?${query}`, {signal : controller.signal})
+				if(!res.ok) console.log(`HTTP error ${res.status}`)
+				const json = await res.json()
+				setResult(json)
+			}catch(err){
+				if(err.name = 'AbortError') return;
+				concole.log(serach failed)
+			}
+			
+		}
+
+		if(query) search()
+
+		return () => controller.abort()
+
+	},[query])
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

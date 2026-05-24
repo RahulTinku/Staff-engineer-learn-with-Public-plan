@@ -1,0 +1,201 @@
+import React, {useEffect, useState, useMemo, useCallback, createContext, useContext} from 'react';
+import {FixedSizeList} from 'react-window'
+
+//useDebounce hook
+
+const useDebounce = (value, delay) =>{
+	const [query, setQuery] = useState('');
+
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			setQuery(value)
+		}, delay)
+
+		return () => clearTimeout(timeout)
+
+	},[value, delay])
+
+	return query;
+}
+
+// useFetch to call apis
+const useFecth = (api) => {
+	const [data, setData] = useState(null)
+	const [error, setError] = useState(null)
+	const [loading, setLoading] - useState(false)
+
+	useEffect(() => {
+
+		if(!url) return
+
+		const controller = new AbortController()
+
+		const getData = async() => {
+			try{
+				setError(null)
+				setLoading(true)
+
+				const res = await fetch(api, {signal: controller.signal})
+
+				if(!res.ok) throw new Error(`HTTP error status ${res.status}`)
+
+				const json = await res.json()
+				setData(json)
+			}catch(err) {
+				if(err.name = 'AbortError') return
+				setError(err.message)
+			}finally{
+				setLoading(false)
+			}
+		}
+
+		getData()
+
+		return () => controller.abort()
+
+	}, [api])
+
+	return {data, error, loading}
+}
+
+
+// Filter pannel
+const FilterContext = createContext(null)
+
+const useFilter = () => {
+	const context = useContext(FilterContext);
+	if(!context) throw new Error('FilterPannel sub-component must be inside <FilterPannel>')
+	return context;
+}
+
+const FilterPannel = ({children}) => {
+	const [isOpen, setIsOpen] = useState(false)
+	const [selected, setSelected] = useState(null)
+
+	return(
+		<FilterContext.Provider value={{iseOpen, setIsOpen, selected, setSelected}}>
+			{children}
+		<FilterContext.Provider>
+	)
+}
+
+FilterPannel.Toggel = ({children}) => {
+	const {isOpen, setIsOpen} = useFilter()
+	return(
+		<button onClick={() => setIsOpen(!isOpen)}
+			{children} {isOpen ? 'up' : 'down'}
+		</button>
+	)
+}	
+
+FilterPannel.Options = ({children}) => {
+	const {isOpen} = useFilter()
+	if(!isOpen) return null
+
+	return {children}
+}
+
+FilterPannle.Option = ({value, children}) => {
+	const {selected, setSelected, setIsOpen} = useFilter()
+
+	return(
+		<div onClick={() => {setSelectedValue(value); setIsOpen(false)}}>
+			{children}
+		</div>
+	)
+}
+
+// Product
+
+const ProductRow = memo(({index, style, data}) => {
+	const {products, onFilter} = data;
+	const procut = products[index]
+
+	return(
+		<div style={style}>
+			<span>{product.name}</span>
+			<span>{product.price}</span>
+			<span>{product.category}</span>
+			<button onClick={() => onFilter(product)}>Filter</button>
+		</div>
+	)
+})
+
+const ProductSearchDashboard = () => {
+	const [searchText, setSearchText] = useState('')
+	const [category, setCategory] = useState(null)
+
+	//useRef to track focus withour re-triggeing re-render
+	const focusCOunt = useRef(0)
+	const focusDisplayRef = useRef(null)
+
+	const debouncedQuery = useDebounced(searchText, 400)
+
+	const {data, loading, error} = useFetch(debouncedQuery? `/api/products?search=${debouncedQuery}`: null)
+
+	const results = data || []
+
+	const sorted = useMemo(() => {
+		[...results].sort((a,b) => a.name.localCompare(b.name))
+	},[results])
+
+	const handleFilter = useCallback(() => {
+		setCategory(product.category)
+	},[])
+
+	const itemData = useMemo(() => {
+		products: sorted, onFilter: handleFilter
+	}, [sorted, handleFilter])
+
+	const handleFocus =() => {
+		focusCount += 1;
+
+		if(focusDisplayRef.current){
+			focusDisplayRef.current.textContext = `Input focused ${focusCount.current} times`
+		}
+	}
+
+	return(
+		<div>
+			<h2>Product Search</h2>
+			<span ref={focusDisplayRef}> Input Focused 0 times </span>
+
+			<input type='text' value={searchText} onChange={e => setSearchText(e.target.value)} onFocus={handleFocus} placeholder="Search Product" />
+
+			<FilterPannel>
+				<FilterPannle.Toggle> Filter </FilterPannel.Toggle>
+				<FilterPannel.Options>
+					<FilterPannel.Option value={electronics}>
+						Electronics
+					</FilterPannel.Option>
+					<FilterPannel.Option value={clothing}>
+						Clothing
+					</FilterPannel.Option>
+				</FilterPannl.Options>
+			<FilterPannel>
+
+			{loading && <div>Loading .... </div>}
+			{error && <div>{error} </div>}
+
+			<FixedSizeList height={500} width="100%" itemCount ={sorted.length} itemSize={60} itemData={itemData}>{ProductRow}</FixedSizeList>
+		</div>
+	)
+}
+
+export default ProductSeachDasboard
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,95 @@
+import React, {useState, useEffect} from 'react'
+
+const Bug = () => {
+	const [counter, setCounter] = useState(0)
+
+	useEffect(() => {
+		const id = setInterval(() => {
+			console.log(counter)
+			}, 1000)
+
+		return () => clearInterval(id)
+	},[])
+
+	return(
+		<button onClick={() => setCounter(c => c+1 )}>Increament </button>
+	)
+}
+
+
+import React, {useState, useEffect, useRef} from 'react'
+
+const Fix = () => {
+	const [counter, setCounter] = useState(0)
+	const counterRef = useRef(counter)
+
+	Keep the ref sync with latest coutner value.
+	useEffect(() => {
+		counterRef.current = counter
+		}, [counter])
+
+	useEffect(() => {
+		const id = setInterval(() => {
+			console.log(counter)
+			}, 1000)
+
+		return () => clearInterval(id)
+	},[])
+
+	return(
+		<button onClick={() => setCounter(c => c+1 )}>Increament </button>
+	)
+}
+
+------------------------------------------------------------------------------------
+
+const inputRef = useRef(null)
+<input ref={inputRef} />
+inputRef.current.focus();
+
+import React,{useState, useRef} from 'react'
+
+const RenderCounter = () => {
+	const [count, setCount] = useState(0)
+
+// this will cause infinite loop
+		setCount(c => c+1)
+
+
+	return(
+		<div>{count}</div>
+	)
+}
+
+const RenderCounter = () => {
+	const count = useRef(0)
+
+
+		count.current++
+
+
+	return(
+		<div>{count.current}</div>
+	)
+}
+
+------------------------------------------------------------------------------------
+
+const useWebSocket = (url) => {
+  const [messages, setMessages] = useState([]);
+  const [status, setStatus] = useState('disconnected');
+
+  useEffect(() => {
+    const ws = new WebSocket(url);
+
+    ws.onopen = () => setStatus(m => m ='connected');
+
+    ws.onmessage = (event) => {
+      setMessages(messages => [...messages, event.data]);
+    };
+
+    ws.onerror = () => setStatus(e => e='error');
+  }, []);
+
+  return { messages, status };
+};

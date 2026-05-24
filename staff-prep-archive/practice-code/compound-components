@@ -1,0 +1,226 @@
+import React, {createContext, useContext, useState} from 'react'
+
+const SelectContext = createContext() // create context for shared state.
+
+// parent own and provide state
+const Select = ({children}) => {
+	const [isOpen, setIsOpen] = useState(false)
+	const [selectedValue, setSelectedValue] = useState(null)
+
+	return(
+		<SelectContext.provider value={{
+			isOpen,
+			setIsOpen,
+			selectedValue,
+			setSelectedValue
+		}}>
+			<div className="selected-container">{children}</div>
+		</SelectContext.provider>
+	)
+}
+
+//setp 3  - custom hook to consume context cleanly
+
+const useSelect = () => {
+	const context = useContext(SelectContext)
+	if(!context){
+		throw new Error('useSelect must be within Select component')
+	}
+	return context;
+}
+
+// step 4- sub-component reads from context
+
+Select.Trigger = ({children}) => {
+	const {isOpen, setIsOpen, selectedValue} = useSelect();
+
+	return(
+		<button onClick={() => setIsOpen(!isOpen)} className={select-trigger}>{selectedValue || children} <span>{isOpen ? '▲' : '▼'}</span></button>
+	)
+}
+
+Select.Option = ({value, children}) => {
+	const {setSelectedValue, SetIsOpen, selectedValue} = useSelect()
+
+	const isSelected = selectedValue === value;
+
+	return(
+		<li onClick={() => {
+			setSelectedValue(value) 
+			setIsOpen(false)
+			}
+		className={isSelected ? 'selected' : ''}
+		}>
+		{children}
+		</li>
+	)
+}
+
+export default Select;
+
+
+
+<Select>
+	<Select.Trigger>Choose Fruit</Select.Trigger>
+	<Select.Option>
+		<Select.Option value='apple'>Apple</Select.Option>
+		<Select.Option value='banana'>Banana</Select.Option>
+</Select>
+
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+import React, {useContext, createContext, useState, useEffect, useCallback} from 'react';
+
+const NotificationContext = createContext()
+
+const NotificationProvider = ({children}) => {
+	const [notify, setNotify] = useState([])
+	
+	const notify = useCallback((message, type = 'info') => {
+		const id = Date.now() // unique identification per notification
+
+		setNotification(prev => [...prev, {id, message, type}])
+	},[])
+
+	const dismiss = useCallback((id) => {
+		setNotification(prev => prev.filter(n => n.id !== id))
+	}, [])
+
+	return(
+		<NotificationContext.provider value={{
+			notify,
+			dismiss
+		}}>
+			{children}
+
+			<NotificationContainer
+				notification = {notification}
+				onDismiss={dismiss}
+			/>
+
+		</NotificationContext.provider>
+	)
+}
+
+const useNotification = () => {
+	const context = useContext(NotificationContext);
+
+	if(!context) throw new Error('this is called outside of Notification Provider')
+
+	return context;
+}
+
+const NotificationItem = ({notification, onDismiss}) => {
+	const {id, message, type} = useNotificaiton()
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			onDismiss(id)
+		}, 3000)
+
+		return () => clearTimeout(timer)
+
+	}, [id, onDismiss])
+
+	return(
+		<div>
+			<span>{message}</span>
+			<button onClick={() => onDismiss(id)}>X</button>
+		</div>
+	)
+}
+
+
+const NotificationContainer = ({notification, onDismiss}) => {
+	if(notification.length === 0) return null
+
+	return(
+		{notification.map((n) => {
+			<NotificationItem 
+				key={n.id}
+				message={n}
+				onDismiss={onDismiss}
+			/>
+		})}
+	)
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+import React, {createContext, useContext, useState, useEffect, useCallback} from 'react'
+
+const NotificationContext = createContext()
+
+const NotificationProvider = ({children}) = {
+	
+	const [notification, setNotification] = useState([]);
+
+	const notify = useCallback((message, type: 'info') => {
+		const id = Date.now() // unique id for notification
+
+		setNotification(prev => [...prev, {id, message, type}])
+	},[])
+
+	const dismiss = useCallback((id) => {
+		setNotification(prev => prev.filter(i => i.id !== id))
+	},[])
+
+
+	return(
+		<NotificationContext.provider value={{notify, dismiss}}>
+			{children}
+			<NotificationContainer notification={notification} onDismiss={dismiss}>
+		</NotificationContext.provider>
+	)
+}
+
+const useNotification = () => {
+	const context = useContext(NotificationContext)
+
+	if(!context) throw new Error('call within Notification Provider')
+
+	return context
+}
+
+const NotificationItem =({message, onDismiss}) => {
+	const {id, message, onDismiss} = useNotification()
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+		onDismiss(id)
+		}, 3000)
+
+		return () => clearTimeout(timer)
+	}, [id, onDismiss])
+
+	return(
+		<div>
+			<span>{message}</span>
+			<button onClick={() => onDismiss(id)}> X </button>
+		</div>
+	)
+}
+
+const NotificationContainer = ({notification, onDismiss}) => {
+	
+	if(notification.length === 0) return;
+
+	return(
+		{notification.map((n) => 
+			<NotificationItem 
+				key={n.id}
+				message={n}
+				onDismiss={onDismiss}
+			/>
+		)}
+		
+		}
+	)
+}
+
+
+
+
