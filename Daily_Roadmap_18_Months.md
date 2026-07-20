@@ -3,43 +3,116 @@
 
 ---
 
+## 🔄 RESTART: July 21, 2026 — Adjusted Plan
+
+### What Was Completed (March–May 2026, ~10 active days)
+- ✅ JavaScript internals (Event Loop, closures, `this`, async/await, prototype chain)
+- ✅ TypeScript (generics, utility types, `infer`, conditional types — full cheat sheet)
+- ✅ React hooks internals (useState, useEffect, useRef, useCallback, useMemo, useDeferredValue)
+- ✅ Custom hooks, composition patterns, React performance, virtualization
+- ✅ Module Federation / MFE architecture
+- ✅ System Design: Instagram, Twitter, URL Shortener (high-level)
+- ✅ Staff Engineer mock interview — 5 Pass | 6 Partial | 7 Fail → weak areas in `recap-10-days.md`
+
+### Skip List (Done or Mastered at Work)
+- ~~Week 1-2: React foundations~~ → done
+- ~~Week 3-4: TypeScript basics~~ → done
+- ~~Wednesday React hands-on builds (W5-8)~~ → done
+- ~~Module Federation study~~ → mastered at work (Electrode, federation-utils daily)
+
+### Priority Reorder for July 2026 Restart
+
+| Priority | Domain | Reason |
+|---|---|---|
+| 🔴 1 | **AI System Design** (RAG, agents, LLM serving) | Standard interview question NOW; biggest career gap |
+| 🔴 2 | **DDIA — Distributed Systems** | Biggest technical breadth gap for PE; not started |
+| 🔴 3 | **STAR behavioral stories** | Amazon is 60% behavioral; polishing takes months |
+| 🟡 4 | **Backend patterns** (microservices, CQRS, event sourcing) | Cross-domain breadth |
+| 🟡 5 | **System Design practice** (weekly) | Already started; 1 full design/week |
+| 🟢 6 | **DSA — Medium problems** | Maintenance pace (3/week), not from scratch |
+| 🟢 7 | **Business acumen** | An Elegant Puzzle + Inspired — read alongside other tracks |
+
+### New Timeline
+- **Restart date:** July 21, 2026
+- **Target interview readiness:** October–November 2027 (~15 months from restart)
+- Compressed from 18 months — prior React/TS/MFE expertise reduces ramp-up
+
+### Restart Weekly Schedule (1 hour/day)
+
+| Day | Topic (10 min Anki + 50 min main) |
+|---|---|
+| **Monday** | DSA — NeetCode Medium (graphs, DP, trees — skip easy) |
+| **Tuesday** | AI System Design — follow Phase A → B → C below |
+| **Wednesday** | DDIA — 2 chapters/week cadence |
+| **Thursday** | System Design practice — 1 full design, Excalidraw, timed |
+| **Friday** | STAR story writing — 1 new or 1 polished story |
+| **Saturday** | Build: AI project (RAG chatbot W1-4, agent W5-8) or open-source |
+| **Sunday** | Anki heavy review + weekly plan + journal |
+
+> Anki: import `anki-import-deck.txt` if not already imported. Never break the streak.
+
+---
+
 > **The problem this solves:** You're forgetting what you learn. You couldn't code a simple React app in your last interview. That means the old approach (read → forget → cram before interview) is broken. This plan fixes it with: **(1)** daily hands-on coding (you code every single day — no "just reading" days), **(2)** spaced repetition via Anki so concepts stick permanently, **(3)** AI tools to 3x your preparation speed.
 
 ---
 
-## 💰 Subscriptions & Tools (What to Buy)
+## 💰 Subscriptions & Tools (Phased — Only Pay When You Need It)
 
-### Must-Have (Total: ~$45/month)
+> **Total cost over 18 months: ~$300 (~$17/month average).** You don't need everything at once. Layer tools as you progress. Free resources cover Months 1-6 completely.
 
-| Tool | Cost | Why | When to Get |
+### Phase 1: Months 1-6 — FREE ($0/month)
+
+| Tool | Cost | What It Covers |
+|---|---|---|
+| **Anki** (desktop + AnkiWeb mobile sync) | Free | Spaced repetition — the core of not forgetting. Non-negotiable. |
+| **NeetCode** (free tier) | Free | NeetCode 150 problem list + YouTube video explanations. Pro only adds a code editor — not needed. |
+| **Claude Free / ChatGPT Free** | Free | 2-3 AI mock interviews per day, code review, concept explanations. Enough for 6 months. |
+| **Excalidraw** | Free | System design whiteboarding |
+| **Google Interview Warmup** | Free | AI speech practice — talk through solutions out loud |
+| **DeepLearning.AI Short Courses** | Free | RAG, agents, prompt engineering — all free |
+| **ByteByteGo YouTube** | Free | System design visual explainers |
+| **Andrej Karpathy YouTube** | Free | Best AI/LLM fundamentals content |
+| **NeetCode YouTube** | Free | DSA pattern videos |
+| **roadmap.sh/ai-agents** | Free | AI agent visual learning path |
+| **Google SRE Book** (online) | Free | Reliability engineering |
+| **Cursor** (free tier) | Free | AI-powered IDE — use daily at work for AI fluency |
+
+### Phase 2: Months 7-12 — $20/month
+
+| Tool | Cost | Why Now |
+|---|---|---|
+| **Claude Pro OR ChatGPT Plus** (pick ONE) | $20/mo | Free tier limits will block you by now. Need longer mock interviews, deeper code review, and AI project help. Claude is better for system design mocks. |
+
+> Everything from Phase 1 continues free.
+
+### Phase 3: Months 13-18 — $25-35/month
+
+| Tool | Cost | Why Now |
+|---|---|---|
+| **HelloInterview Premium** | ~$25/mo | Only platform with Staff+ calibrated system design. Get it 2-3 months before real interviews — not before. |
+| **LeetCode Premium** (optional) | $13/mo | Company-tagged problems + frequency sort. Only if targeting specific companies. Skip if budget is tight. |
+| **Interviewing.io** (1-2 sessions) | $225/session | Real FAANG engineer mock interviews. Do 1-2 right before your actual interview loop. Not a subscription. |
+
+> Cancel HelloInterview after landing interviews. Cancel LeetCode after offers.
+
+### What You DON'T Need
+
+| Tool | Cost | Why Skip |
+|---|---|---|
+| NeetCode Pro | $10/mo | Free tier + YouTube is 90% of the value |
+| Cursor Pro | $20/mo | Free tier works fine |
+| Educative.io | $13/mo | HelloInterview + free resources cover it |
+| AlgoExpert | $99/yr | NeetCode is better structured and cheaper |
+
+### 💰 Total Cost Breakdown
+
+| Period | Monthly | Duration | Subtotal |
 |---|---|---|---|
-| **NeetCode Pro** | $119/year (~$10/mo) | DSA roadmap (NeetCode 150), video explanations, pattern-based learning | Day 1 |
-| **HelloInterview Premium** | ~$25/mo | System design at Staff+ level, AI mock interviews, behavioral prep — only platform with Staff/PE calibration | Month 2 |
-| **Anki** (desktop) | Free | Spaced repetition — the science of not forgetting. Build cards from every failure | Day 1 |
-| **AnkiWeb** (mobile sync) | Free | Review cards on phone during commute/waiting |  Day 1 |
-| **Claude Pro / ChatGPT Plus** | $20/mo | AI mock interviewer, code review, concept explanation, flashcard generation | Day 1 |
-
-### Nice-to-Have (Add When Needed)
-
-| Tool | Cost | Why | When to Get |
-|---|---|---|---|
-| **LeetCode Premium** | $159/year (~$13/mo) | Company-tagged problems, frequency sort — useful in Phase 5-6 when targeting specific companies | Month 13 |
-| **Educative.io** | $59/mo or $149/year | "Grokking System Design", "Grokking Coding Interview" — interactive, text-based | Month 4 (if HelloInterview isn't enough) |
-| **Interviewing.io** | Free (AI) / $225+ (human) | Anonymous mock interviews with real FAANG engineers — 2-3 sessions before real interviews | Month 15 |
-| **Cursor Pro** | $20/mo | AI-powered IDE — use daily at work to build AI fluency | Day 1 (if not already using) |
-| **Excalidraw** | Free | Draw system designs — practice whiteboarding digitally | Day 1 |
-
-### Free Resources (Use Heavily)
-
-| Resource | Use For |
-|---|---|
-| [Google Interview Warmup](https://grow.google/certificates/interview-warmup/) | Free AI speech practice — talk through solutions out loud |
-| [Andrej Karpathy YouTube](https://youtube.com/@AndrejKarpathy) | AI/LLM fundamentals |
-| [ByteByteGo YouTube](https://youtube.com/@ByteByteGo) | System design visual explainers |
-| [NeetCode YouTube](https://youtube.com/@NeetCode) | DSA pattern videos (free) |
-| [DeepLearning.AI Short Courses](https://www.deeplearning.ai/short-courses/) | RAG, agents, prompt engineering (free) |
-| [roadmap.sh/ai-agents](https://roadmap.sh/ai-agents) | AI agent learning path |
-| Google SRE Book (online) | Reliability engineering |
+| Months 1-6 | $0 | 6 months | $0 |
+| Months 7-12 | $20 | 6 months | $120 |
+| Months 13-18 | ~$30 avg | 6 months | ~$180 |
+| **Total** | **~$17/mo avg** | **18 months** | **~$300** |
 
 ---
 
